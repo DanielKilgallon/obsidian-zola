@@ -51,15 +51,16 @@ export REPO_URL=local
 
 # Remove previous build and sync Zola template contents
 rm -rf build
-rsync -a zola/ build
-rsync -a content/ build/content
+mkdir build
+cp -r zola/* build/
+cp -r content/ build/
 
 # Use obsidian-export to export markdown content from obsidian
 mkdir -p build/content/docs build/__docs
 if [ -z "$STRICT_LINE_BREAKS" ]; then
-	bin/obsidian-export --frontmatter=never --hard-linebreaks --no-recursive-embeds $VAULT build/__docs
+	bin/obsidian-export_Windows-x64_64.exe --frontmatter=never --hard-linebreaks --no-recursive-embeds $VAULT build/__docs
 else
-	bin/obsidian-export --frontmatter=never --no-recursive-embeds $VAULT build/__docs
+	bin/obsidian-export_Windows-x64_64.exe --frontmatter=never --no-recursive-embeds $VAULT build/__docs
 fi
 
 # Run conversion script

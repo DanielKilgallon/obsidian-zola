@@ -192,7 +192,7 @@ class DocPath:
         """Writes content to a child path under new path."""
         new_path = self.new_path / child
         new_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(new_path, "w") as f:
+        with open(new_path, "w", encoding='utf-8') as f:
             if isinstance(content, str):
                 f.write(content)
             else:
@@ -226,14 +226,14 @@ class DocPath:
     @property
     def content(self) -> List[str]:
         """Gets the lines of the file."""
-        return [line for line in open(self.old_path, "r").readlines()]
+        return [line for line in open(self.old_path, "r", encoding='utf-8').readlines()]
 
     def write(self, content: Union[str, List[str]]):
         """Writes content to new path."""
         if not isinstance(content, str):
             content = "".join(content)
         self.new_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(self.new_path, "w") as f:
+        with open(self.new_path, "w", encoding='utf-8') as f:
             f.write(content)
 
     # --------------------------------- Resources -------------------------------- #
@@ -292,7 +292,7 @@ class Settings:
         "SLUGIFY": "y",
         "HOME_GRAPH": "y",
         "PAGE_GRAPH": "y",
-        "SUBSECTION_SYMBOL": "👉",
+        "SUBSECTION_SYMBOL": "→",
         "LOCAL_GRAPH": "",
         "GRAPH_LINK_REPLACE": "",
         "STRICT_LINE_BREAKS": "y",
@@ -370,8 +370,8 @@ class Settings:
     @classmethod
     def sub_file(cls, path: Path):
         """Substitutes variable placeholders in a file."""
-        content = "".join([cls.sub_line(line) for line in open(path, "r").readlines()])
-        open(path, "w").write(content)
+        content = "".join([cls.sub_line(line) for line in open(path, "r", encoding='utf-8').readlines()])
+        open(path, "w", encoding='utf-8').write(content)
 
 
 # ---------------------------------------------------------------------------- #
